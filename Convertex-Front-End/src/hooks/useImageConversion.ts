@@ -31,15 +31,26 @@ export function useImageConversion() {
             const downloadName = `${baseName}.${format.toLowerCase()}`;
 
             const blobUrl = window.URL.createObjectURL(blobResult);
-            const downloadLink = document.createElement('a');
-            downloadLink.href = blobUrl;
-            downloadLink.download = downloadName;
 
-            document.body.appendChild(downloadLink);
-            downloadLink.click();
+            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) ||
+                (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-            document.body.removeChild(downloadLink);
-            window.URL.revokeObjectURL(blobUrl);
+            if (isIOS) {
+                window.open(blobUrl, '_blank');
+            } else {
+                const downloadLink = document.createElement('a');
+                downloadLink.href = blobUrl;
+                downloadLink.download = downloadName;
+
+                document.body.appendChild(downloadLink);
+                downloadLink.click();
+
+                document.body.removeChild(downloadLink);
+            }
+
+            if (!isIOS) {
+                window.URL.revokeObjectURL(blobUrl);
+            }
 
         } catch (err: any) {
 
