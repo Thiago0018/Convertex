@@ -65,7 +65,7 @@ export function OcrSection() {
                                 Processando...
                             </span>
                         ) : (
-                            'Converter Imagem'
+                            'extrair texto'
                         )}
                     </button>
                 </div>

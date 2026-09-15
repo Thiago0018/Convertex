@@ -75,7 +75,6 @@ export function OcrResultModal({
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b border-slate-800">
                     <div className="flex items-center gap-2">
-                        <span className="w-3 h-3 rounded-full bg-emerald-500 animate-pulse" />
                         <h3 className="font-bold text-slate-100 text-lg">
                             Documento Processado ({format?.toUpperCase()})
                         </h3>

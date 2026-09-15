@@ -10,8 +10,8 @@ export interface ImageSelectionResult {
 }
 
 export interface OcrExtractionResult {
-    text: string;      // Texto legível formatado para o modal/textarea
-    blobData: Blob;    // Bytes compilados retornados pela API .NET
+    text: string;
+    blobData: Blob;
 }
 
 export const imageService = {

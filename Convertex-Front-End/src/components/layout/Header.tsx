@@ -1,4 +1,5 @@
 import { DynamicLinkText } from '../ui/DynamicLinkText';
+import { ClickableText } from '../ui/ClickableText';
 
 export function Header() {
     return (
@@ -7,6 +8,11 @@ export function Header() {
                 <div className="flex items-center gap-2 text-white">
                     <DynamicLinkText to="/" variant="secondary" as="h1">
                         CONVERTEX
+                    </DynamicLinkText>
+                </div>
+                <div>
+                    <DynamicLinkText to="/conversao" variant="secondary" as="p">
+                        CONVERTER IMAGEM
                     </DynamicLinkText>
                 </div>
             </div>

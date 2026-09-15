@@ -49,4 +49,21 @@ public class ImageConverterController : ControllerBase
 
 
     }
+
+    [HttpGet("supported-formats")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SupportedFormatsResponseDto))]
+    public IActionResult GetSupportedFormats()
+    {
+        var formats = Configuration.Default.ImageFormatsManager.ImageFormats
+            .SelectMany(f => f.FileExtensions)
+            .Select(ext => ext.ToLower().TrimStart('.'))
+            .Where(ext => ext != "heic" && ext != "heif")
+            .Distinct()
+            .OrderBy(ext => ext)
+            .ToList();
+
+        var responseDto = new SupportedFormatsResponseDto(formats, formats.Count);
+
+        return Ok(responseDto);
+    }
 }

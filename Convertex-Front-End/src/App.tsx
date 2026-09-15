@@ -7,7 +7,6 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                {/* Configuração global das notificações toast */}
                 <Toaster
                     position="bottom-center"
                     toastOptions={{
