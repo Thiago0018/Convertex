@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { ImageConversionService, ImageResponseDto } from "../service/ImageConversionService";
+import { ImageConversionService } from "../service/ImageConversionService";
 
 export function useImageConversion() {
-    const [convertedData, setConvertedData] = useState<ImageResponseDto | null>(null);
+    const [convertedBlob, setConvertedBlob] = useState<Blob | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
     const [supportedFormats, setSupportedFormats] = useState<string[]>([]);
@@ -24,39 +24,46 @@ export function useImageConversion() {
             setLoading(true);
             setError(null);
 
-            const result = await ImageConversionService.convertImage(file, format);
+            const blobResult = await ImageConversionService.convertImage(file, format);
+            setConvertedBlob(blobResult);
 
-            setConvertedData(result);
+            const baseName = file.name.substring(0, file.name.lastIndexOf('.'));
+            const downloadName = `${baseName}.${format.toLowerCase()}`;
 
-            triggerDownload(result.base64Dto, result.contentType, result.fileName);
+            const blobUrl = window.URL.createObjectURL(blobResult);
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = downloadName;
+
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+            document.body.removeChild(downloadLink);
+            window.URL.revokeObjectURL(blobUrl);
 
         } catch (err: any) {
-            const apiMessage = err.response?.data?.message || "Falha ao processar e converter a imagem.";
-            setError(apiMessage);
-            console.error(err);
 
+            if (err.response?.data instanceof Blob) {
+                const textError = await err.response.data.text();
+                const parsedError = JSON.parse(textError);
+                setError(parsedError.message || "Falha ao processar e converter a imagem.");
+            } else {
+                setError(err.response?.data?.message || "Falha ao processar e converter a imagem.");
+            }
+            console.error(err);
         } finally {
             setLoading(false);
         }
     };
 
 
-    const triggerDownload = (base64: string, contentType: string, fileName: string) => {
-        const link = document.createElement("a");
-        link.href = `data:${contentType};base64,${base64}`;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
-
     const reset = () => {
-        setConvertedData(null);
+        setConvertedBlob(null);
         setError(null);
     };
 
     return {
-        convertedData,
+        convertedBlob,
         loading,
         error,
         supportedFormats,

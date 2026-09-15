@@ -3,7 +3,6 @@ import { api } from "./api";
 export interface ImageResponseDto {
     fileName: string;
     contentType: string;
-    base64Dto: string;
 }
 
 export interface SupportedFormatsResponseDto {
@@ -17,15 +16,14 @@ export const ImageConversionService = {
         return response.data;
     },
 
-    convertImage: async (file: File, format: string): Promise<ImageResponseDto> => {
+    convertImage: async (file: File, format: string): Promise<Blob> => {
         const formData = new FormData();
         formData.append('file', file);
         formData.append('format', format);
 
-        const response = await api.post<ImageResponseDto>('/ImageConverter/Conversion', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-            },
+        const response = await api.post('/ImageConverter/Conversion', formData, {
+            headers: { 'Content-Type': 'multipart/form-data' },
+            responseType: 'blob'
         });
 
         return response.data;

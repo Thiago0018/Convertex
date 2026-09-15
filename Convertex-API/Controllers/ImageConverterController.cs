@@ -18,21 +18,14 @@ public class ImageConverterController : ControllerBase
 
 
     [HttpPost("Conversion")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ImageConversionResponseDto))]
+    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> ConvertImage([FromForm] IFormFile file, [FromForm] string format)
     {
         try
         {
             var (fileBytes, contentType, fileName) = await _imageConversionService.ConvertAsync(file, format);
-            var responseDto = new ImageConversionResponseDto(
-                fileName,
-                contentType,
-                Convert.ToBase64String(fileBytes)
-            );
-
-            return Ok(responseDto);
+            return File(fileBytes, contentType, fileName);
         }
         catch (InvalidImageContentException ex)
         {

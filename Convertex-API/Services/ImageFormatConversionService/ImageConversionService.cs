@@ -1,5 +1,6 @@
 using SixLabors.ImageSharp.Formats;
 using SixLabors.ImageSharp;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Convertex_API.Services.ImageFormatConversionService;
 
@@ -11,8 +12,10 @@ public interface IImageConversionService
 public class ImageConversionService : IImageConversionService
 {
 
+    //metodo que determina se o formato buscado pelo usuario é suportado
     private IImageFormat GetFormatByExtensionOrMime(string extensionOrMime)
     {
+
         var cleanFormat = extensionOrMime.TrimStart('.').Trim().ToLower();
 
         if (cleanFormat == "heic" || cleanFormat == "heif")

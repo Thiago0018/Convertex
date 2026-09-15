@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 import { Header } from "../components/layout/Header";
 import { Footer } from "../components/layout/Footer";
 import { useImageConversion } from "../hooks/useImageConversion";
@@ -7,7 +7,15 @@ export function ConvertionPage() {
     const { supportedFormats, handleConvert, loading, error, reset } = useImageConversion();
 
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
-    const [targetFormat, setTargetFormat] = useState<string>("png");
+    const [targetFormat, setTargetFormat] = useState<string>("");
+
+    useEffect(() => {
+        if (supportedFormats && supportedFormats.length > 0) {
+            setTargetFormat(supportedFormats[0]);
+        } else {
+            setTargetFormat("png");
+        }
+    }, [supportedFormats]);
 
     const handleFileSelect = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -17,7 +25,7 @@ export function ConvertionPage() {
     };
 
     const handleSubmit = () => {
-        if (selectedFile) {
+        if (selectedFile && targetFormat) {
             handleConvert(selectedFile, targetFormat);
         }
     };

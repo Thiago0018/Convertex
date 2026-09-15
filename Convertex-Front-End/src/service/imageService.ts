@@ -66,14 +66,5 @@ export const imageService = {
         }
     },
 
-    triggerDownload(blobData: Blob, format: FileFormat): void {
-        const downloadUrl = window.URL.createObjectURL(blobData);
-        const link = document.createElement('a');
-        link.href = downloadUrl;
-        link.setAttribute('download', `resultado-ocr.${format}`);
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        window.URL.revokeObjectURL(downloadUrl);
-    }
+
 };
