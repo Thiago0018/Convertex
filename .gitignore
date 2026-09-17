@@ -1,17 +1,69 @@
-# Pastas de build do .NET
+# ==========================================
+# 1. Dependências do Node.js / Front-End
+# ==========================================
+**/node_modules/
+**/.pnpm-store/
+
+# ==========================================
+# 2. Builds e Caches de Front-End & .NET
+# ==========================================
+**/dist/
+**/dist-ssr/
+**/build/
+**/.vite/
+**/coverage/
+**/.eslintcache/
 **/bin/
 **/obj/
 
-# Arquivos de credenciais e chaves de API
-*.json
-!appsettings*.json
+# ==========================================
+# 3. Variáveis de Ambiente e Segredos (CRÍTICO)
+# ==========================================
+**/.env
+**/.env.*
+!**/.env.example
+*.pem
+*.key
+*.pfx
+*.cer
 
-# Dependências do Node.js
-**/node_modules/
-**/dist/
+# Credenciais e Arquivos de Configuração Sensíveis do .NET/GCP
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.Production.json
+**/secrets.json
+**/*google*.json
+**/*gcp*.json
+**/*credentials*.json
 
-# Configurações do VS Code / Visual Studio
+# ==========================================
+# 4. Logs e Arquivos de Teste Temporários
+# ==========================================
+*.log
+**/logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Arquivos de saída de testes ou depuração local
+**/TestResults/
+**/test-results/
+*.received.*
+*.approved.*
+
+# ==========================================
+# 5. IDEs e Arquivos de Sistema
+# ==========================================
 .vscode/
 .vs/
+.idea/
 *.user
-**/node_modules/
+*.userosscache
+*.sln.docstates
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sw?
