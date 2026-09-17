@@ -110,14 +110,16 @@ public class OcrService : IOcrService
         return QuestPDF.Fluent.Document.Create(container =>
         {
             container.Page(page =>
+        {
+            page.Margin(40);
+            page.Content().Column(column =>
             {
-                page.Margin(40);
-                page.Content().Column(column =>
+                foreach (string line in lines)
                 {
-                    foreach (string line in lines)
-                        column.Item().Text(line).FontFamily("Arial").FontSize(12);
-                });
+                    column.Item().Text(line).FontSize(12);
+                }
             });
+        });
         }).GeneratePdf();
     }
 

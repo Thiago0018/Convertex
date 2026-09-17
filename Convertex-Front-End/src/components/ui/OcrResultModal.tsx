@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo, ChangeEvent } from 'react';
+import { jsPDF } from 'jspdf';
 
 interface OcrResultModalProps {
     isOpen: boolean;
@@ -16,12 +17,10 @@ export function OcrResultModal({
     const [text, setText] = useState<string>(extractedText);
     const [copied, setCopied] = useState<boolean>(false);
 
-    // Sincroniza o estado interno sempre que o modal abre ou a prop extractedText muda
     useEffect(() => {
         setText(extractedText);
     }, [extractedText, isOpen]);
 
-    // Suporte ao atalho Tecla ESC para fechar
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -30,7 +29,6 @@ export function OcrResultModal({
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [isOpen, onClose]);
 
-    // Cálculo otimizado do contador de palavras e caracteres
     const { wordCount, charCount } = useMemo(() => {
         const trimmedText = text.trim();
         const charCount = text.length;
@@ -55,8 +53,24 @@ export function OcrResultModal({
     };
 
     const handleDownloadEditedText = () => {
-        // Cria um Blob atualizado com o texto editado pelo usuário
-        const updatedBlob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+        if (format === 'pdf') {
+            const doc = new jsPDF();
+
+            const splitText = doc.splitTextToSize(text, 180);
+            doc.text(splitText, 10, 10);
+
+            doc.save('ocr-resultado-editado.pdf');
+            return;
+        }
+
+        const mimeTypes: Record<string, string> = {
+            txt: 'text/plain;charset=utf-8',
+            json: 'application/json;charset=utf-8',
+            csv: 'text/csv;charset=utf-8',
+            docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        };
+
+        const updatedBlob = new Blob([text], { type: mimeTypes[format] || 'text/plain;charset=utf-8' });
         const downloadUrl = window.URL.createObjectURL(updatedBlob);
         const link = document.createElement('a');
         link.href = downloadUrl;
