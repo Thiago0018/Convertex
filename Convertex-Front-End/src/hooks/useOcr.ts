@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import { imageService, type FileFormat } from '../services/ocrService';
+import { ocrService, type FileFormat } from '../services/ocrService';
 import { ocrHistoryService, type OcrHistoryItem } from '../services/ocrHistoryService';
 
 export function useOcr() {
@@ -42,7 +42,7 @@ export function useOcr() {
         try {
             setLoading(true);
 
-            const result = await imageService.uploadToApi(file, format);
+            const result = await ocrService.uploadToApi(file, format);
 
             setExtractedText(result.text);
 
