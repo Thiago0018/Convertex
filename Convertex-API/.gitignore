@@ -1,0 +1,18 @@
+
+# Environment files and API keys
+.env
+.env.*
+!.env.example
+
+# Local secret/config files
+secrets/
+*.key
+*.pem
+*.credentials.json
+*.google.credentials.json
+
+# Build output and local credential exports
+bin/
+obj/
+appsettings.Development.json
+

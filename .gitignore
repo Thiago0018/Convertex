@@ -1,0 +1,16 @@
+# Pastas de build do .NET
+**/bin/
+**/obj/
+
+# Arquivos de credenciais e chaves de API
+*.json
+!appsettings*.json
+
+# Dependências do Node.js
+**/node_modules/
+**/dist/
+
+# Configurações do VS Code / Visual Studio
+.vscode/
+.vs/
+*.user
