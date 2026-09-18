@@ -2,7 +2,15 @@
 
 O Convertex é uma aplicação web para conversão de formatos de imagens e extração de texto via OCR (Optical Character Recognition) em memória. O sistema permite processar arquivos rapidamente sem persistência de dados em disco.
 
-<h2 align="center">🎥 Demonstração da Aplicação</h2>
+<h2 align="center">Demonstração em Ação</h2>
+
+<div align="center">
+  <h3>1. Extração de Texto via OCR (Imagem para Documento)</h3>
+  <img src="https://github.com/Thiago0018/Convertex/issues/3" alt="Demonstração OCR" style="max-width: 100%; border-radius: 12px; margin-bottom: 24px;" />
+
+  <h3>2. Conversor de Formatos de Imagem</h3>
+  <img src="https://github.com/Thiago0018/Convertex/issues/4" alt="Demonstração Conversão" style="max-width: 100%; border-radius: 12px;" />
+</div>
 
 <div align="center">
   <video src="https://convertex-api-one.vercel.app/assets/Convertex-demo.mp4" controls="controls" style="max-width: 100%; border-radius: 12px;">
