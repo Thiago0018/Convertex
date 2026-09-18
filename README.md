@@ -7,7 +7,7 @@ O Convertex é uma aplicação web para conversão de formatos de imagens e extr
 <div align="center">
   <h3>1. Extração de Texto via OCR (Imagem para Documento)</h3>
   
-  <img width="800" height="450" alt="Image" src="https://github.com/user-attachments/assets/5656fb59-53f5-438e-bc94-cf6be7ed74c2" />
+  <img width="800" height="450" alt="Image" src="https://github.com/user-attachments/assets/d74df6a3-3887-4a82-9660-1daa6be877b0" />
 
   <h3>2. Conversor de Formatos de Imagem</h3>
   <img width="800" height="450" alt="Image" src="https://github.com/user-attachments/assets/5656fb59-53f5-438e-bc94-cf6be7ed74c2" />
